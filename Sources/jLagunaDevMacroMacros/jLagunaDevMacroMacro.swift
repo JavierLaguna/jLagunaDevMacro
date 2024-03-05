@@ -25,9 +25,53 @@ public struct StringifyMacro: ExpressionMacro {
     }
 }
 
+enum EnumTitleMacroError: Error, CustomStringConvertible {
+    case onlyApplicableToEnum
+    
+    var description: String {
+        switch self {
+        case .onlyApplicableToEnum: "This macro can only be applied to a enum."
+        }
+    }
+}
+
+public struct EnumTitleMacro: MemberMacro {
+    
+    public static func expansion(of node: AttributeSyntax, providingMembersOf declaration: some DeclGroupSyntax, in context: some MacroExpansionContext) throws -> [DeclSyntax] {
+    
+        guard let enumDel = declaration.as(EnumDeclSyntax.self) else {
+            throw EnumTitleMacroError.onlyApplicableToEnum
+        }
+        
+//        print(enumDel)
+        
+        let members = enumDel.memberBlock.members
+        let caseDecl = members.compactMap { $0.decl.as(EnumCaseDeclSyntax.self) }
+        let cases = caseDecl.compactMap { $0.elements.first?.identifier.text }
+        
+        var title = """
+        var title: String {
+            switch self {
+        """
+        
+        for titleCase in cases {
+            title += "case .\(titleCase):"
+            title += "return \"\(titleCase.capitalized)\""
+        }
+        
+        title += """
+            }
+        }
+        """
+
+        return [DeclSyntax(stringLiteral: title)]
+    }
+}
+
 @main
 struct jLagunaDevMacroPlugin: CompilerPlugin {
     let providingMacros: [Macro.Type] = [
         StringifyMacro.self,
+        EnumTitleMacro.self,
     ]
 }
