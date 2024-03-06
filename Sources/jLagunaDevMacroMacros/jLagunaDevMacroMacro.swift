@@ -53,8 +53,7 @@ public struct EnumTitleMacro: MemberMacro {
         """
         
         for titleCase in cases {
-            title += "case .\(titleCase):"
-            title += "return \"\(titleCase.capitalized)\""
+            title += "case .\(titleCase): \"\(titleCase.capitalized)\""
         }
         
         title += """

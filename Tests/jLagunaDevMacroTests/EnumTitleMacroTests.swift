@@ -25,11 +25,11 @@ final class EnumTitleMacroTests: XCTestCase {
               var title: String {
                   switch self {
                   case .action:
-                      return "Action"
+                      "Action"
                   case .horror:
-                      return "Horror"
+                      "Horror"
                   case .comedy:
-                      return "Comedy"
+                      "Comedy"
                   }
               }
           }
