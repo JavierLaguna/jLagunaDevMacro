@@ -1,53 +1,39 @@
-import SwiftSyntax
-import SwiftSyntaxBuilder
-import SwiftSyntaxMacros
-import SwiftSyntaxMacrosTestSupport
 import XCTest
+import MacroTesting
 
-#if canImport(jLagunaDevMacroMacros)
-import jLagunaDevMacroMacros
-
-fileprivate let testMacros: [String: Macro.Type] = [
-    "EnumTitle": EnumTitleMacro.self,
-]
-#endif
+@testable import jLagunaDevMacroMacros
 
 final class EnumTitleMacroTests: XCTestCase {
     
-    func testMacro() throws {
-        #if canImport(jLagunaDevMacroMacros)
-            assertMacroExpansion(
-                """
-                @EnumTitle
-                enum Genre {
-                    case action
-                    case horror
-                    case comedy
-                }
-                """,
-                expandedSource:
-                """
-                enum Genre {
-                    case action
-                    case horror
-                    case comedy
-                
-                    var title: String {
-                        switch self {
-                        case .action:
-                            return "Action"
-                        case .horror:
-                            return "Horror"
-                        case .comedy:
-                            return "Comedy"
-                        }
-                    }
-                }
-                """,
-                macros: testMacros
-            )
-        #else
-            throw XCTSkip("macros are only supported when running tests for the host platform")
-        #endif
+    func testMacro() {
+      assertMacro(["EnumTitle": EnumTitleMacro.self]) {
+        """
+        @EnumTitle
+        enum Genre {
+            case action
+            case horror
+            case comedy
+        }
+        """
+      } expansion: {
+          """
+          enum Genre {
+              case action
+              case horror
+              case comedy
+
+              var title: String {
+                  switch self {
+                  case .action:
+                      return "Action"
+                  case .horror:
+                      return "Horror"
+                  case .comedy:
+                      return "Comedy"
+                  }
+              }
+          }
+          """
+      }
     }
 }

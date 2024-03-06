@@ -1,6 +1,24 @@
 {
-  "originHash" : "2853dc144e2db6f87c008f803975779e45b558b73ee62c2ca93dd83d845f61da",
+  "originHash" : "4fe320123d556b8bfc103ec829784560a7d3b4921b2496c789bbff122042801b",
   "pins" : [
+    {
+      "identity" : "swift-macro-testing",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-macro-testing",
+      "state" : {
+        "revision" : "90e38eec4bf661ec0da1bbfd3ec507d0f0c05310",
+        "version" : "0.3.0"
+      }
+    },
+    {
+      "identity" : "swift-snapshot-testing",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-snapshot-testing",
+      "state" : {
+        "revision" : "5b0c434778f2c1a4c9b5ebdb8682b28e84dd69bd",
+        "version" : "1.15.4"
+      }
+    },
     {
       "identity" : "swift-syntax",
       "kind" : "remoteSourceControl",
