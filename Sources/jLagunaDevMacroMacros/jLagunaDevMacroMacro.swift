@@ -43,11 +43,9 @@ public struct EnumTitleMacro: MemberMacro {
             throw EnumTitleMacroError.onlyApplicableToEnum
         }
         
-//        print(enumDel)
-        
         let members = enumDel.memberBlock.members
         let caseDecl = members.compactMap { $0.decl.as(EnumCaseDeclSyntax.self) }
-        let cases = caseDecl.compactMap { $0.elements.first?.identifier.text }
+        let cases = caseDecl.compactMap { $0.elements.first?.name.text }
         
         var title = """
         var title: String {
