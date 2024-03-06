@@ -65,10 +65,40 @@ public struct EnumTitleMacro: MemberMacro {
     }
 }
 
+public struct SceneSnapshotUITestMacro: MemberMacro {
+    
+    public static func expansion(of node: AttributeSyntax, providingMembersOf declaration: some DeclGroupSyntax, in context: some MacroExpansionContext) throws -> [DeclSyntax] {
+    
+        // TODO: JLI
+        guard let enumDel = declaration.as(ClassDeclSyntax.self) else {
+            throw EnumTitleMacroError.onlyApplicableToEnum
+        }
+        
+        let members = enumDel.memberBlock.members
+        let caseDecl = members.compactMap { $0.decl.as(EnumCaseDeclSyntax.self) }
+        let cases = caseDecl.compactMap { $0.elements.first?.name.text }
+        
+        var funcA = """
+        func test_charactersListView_loadingState_13MiniLight_snapshot() {
+            assertSnapshot(
+                matching: CharactersListView(),
+                as: .image(
+                    layout: .device(config: .iPhone13Mini),
+                    traits: .init(userInterfaceStyle: .dark)
+                )
+            )
+        }
+        """
+        
+        return [DeclSyntax(stringLiteral: funcA)]
+    }
+}
+
 @main
 struct jLagunaDevMacroPlugin: CompilerPlugin {
     let providingMacros: [Macro.Type] = [
         StringifyMacro.self,
         EnumTitleMacro.self,
+        SceneSnapshotUITestMacro.self,
     ]
 }
