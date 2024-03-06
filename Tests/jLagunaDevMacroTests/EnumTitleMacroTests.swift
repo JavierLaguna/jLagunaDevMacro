@@ -27,21 +27,20 @@ final class EnumTitleMacroTests: XCTestCase {
                 """,
                 expandedSource:
                 """
-                @EnumTitle
                 enum Genre {
                     case action
                     case horror
                     case comedy
-                }
                 
-                var title: String {
-                    switch self {
-                    case .action:
-                        return "Action"
-                    case .horror:
-                        return "Horror"
-                    case .comedy:
-                        return "Comedy"
+                    var title: String {
+                        switch self {
+                        case .action:
+                            return "Action"
+                        case .horror:
+                            return "Horror"
+                        case .comedy:
+                            return "Comedy"
+                        }
                     }
                 }
                 """,

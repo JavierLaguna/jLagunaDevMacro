@@ -8,7 +8,7 @@ import XCTest
 #if canImport(jLagunaDevMacroMacros)
 import jLagunaDevMacroMacros
 
-let testMacros: [String: Macro.Type] = [
+fileprivate let testMacros: [String: Macro.Type] = [
     "stringify": StringifyMacro.self,
 ]
 #endif
