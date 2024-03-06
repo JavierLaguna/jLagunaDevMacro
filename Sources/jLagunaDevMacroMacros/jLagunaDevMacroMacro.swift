@@ -81,7 +81,7 @@ public struct SceneSnapshotUITestMacro: MemberMacro {
         var funcA = """
         func test_charactersListView_loadingState_13MiniLight_snapshot() {
             assertSnapshot(
-                matching: CharactersListView(),
+                matching: CharactersListView(store: store),
                 as: .image(
                     layout: .device(config: .iPhone13Mini),
                     traits: .init(userInterfaceStyle: .dark)
