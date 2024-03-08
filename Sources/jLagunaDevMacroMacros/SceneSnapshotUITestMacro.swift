@@ -54,10 +54,20 @@ private extension SceneSnapshotUITestMacro {
         case dark
     }
     
-    enum Error: Swift.Error { // TODO: JLI - CustomStringConvertible
+    enum Error: Swift.Error, CustomStringConvertible {
         case onlyApplicableToXCTestCase
         case sceneNotFound
         case sceneInvalidType
+        case sceneEmpty
+        
+        var description: String {
+            switch self {
+            case .onlyApplicableToXCTestCase: "This macro can only be applied to a XCTestCase."
+            case .sceneNotFound: "Required scene param."
+            case .sceneInvalidType: "Scene param must be a String."
+            case .sceneEmpty: "Scene param can not be empty."
+            }
+        }
     }
     
     static func getSceneName(from node: SwiftSyntax.AttributeSyntax) throws -> String {
@@ -71,6 +81,10 @@ private extension SceneSnapshotUITestMacro {
         guard let stringExpression = argumentTuple.expression.as(StringLiteralExprSyntax.self),
               let funcName = stringExpression.representedLiteralValue else {
             throw Error.sceneInvalidType
+        }
+        
+        if funcName.isEmpty {
+            throw Error.sceneEmpty
         }
         
         return funcName

@@ -98,7 +98,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
       }
     }
     
-    func testMacroError() {
+    func testMacroRequiredSceneError() {
         assertMacro(["SceneSnapshotUITest": SceneSnapshotUITestMacro.self]) {
         """
         @SceneSnapshotUITest
@@ -110,7 +110,47 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             """
             @SceneSnapshotUITest
             ┬───────────────────
-            ╰─ 🛑 sceneNotFound
+            ╰─ 🛑 Required scene param.
+            final class CharactersListViewTests: XCTestCase {
+                
+            }
+            """
+        }
+    }
+    
+    func testMacroSceneInvalidTypeError() {
+        assertMacro(["SceneSnapshotUITest": SceneSnapshotUITestMacro.self]) {
+        """
+        @SceneSnapshotUITest(scene: 2)
+        final class CharactersListViewTests: XCTestCase {
+            
+        }
+        """
+        } diagnostics: {
+            """
+            @SceneSnapshotUITest(scene: 2)
+            ┬─────────────────────────────
+            ╰─ 🛑 Scene param must be a String.
+            final class CharactersListViewTests: XCTestCase {
+                
+            }
+            """
+        }
+    }
+    
+    func testMacroSceneEmptyError() {
+        assertMacro(["SceneSnapshotUITest": SceneSnapshotUITestMacro.self]) {
+        """
+        @SceneSnapshotUITest(scene: "")
+        final class CharactersListViewTests: XCTestCase {
+            
+        }
+        """
+        } diagnostics: {
+            """
+            @SceneSnapshotUITest(scene: "")
+            ┬──────────────────────────────
+            ╰─ 🛑 Scene param can not be empty.
             final class CharactersListViewTests: XCTestCase {
                 
             }
