@@ -14,4 +14,6 @@ public macro stringify<T>(_ value: T) -> (T, String) = #externalMacro(module: "j
 public macro EnumTitle() = #externalMacro(module: "jLagunaDevMacroMacros", type: "EnumTitleMacro")
 
 @attached(member, names: arbitrary)
-public macro SceneSnapshotUITest() = #externalMacro(module: "jLagunaDevMacroMacros", type: "SceneSnapshotUITestMacro")
+public macro SceneSnapshotUITest(
+    scene: String
+) = #externalMacro(module: "jLagunaDevMacroMacros", type: "SceneSnapshotUITestMacro")

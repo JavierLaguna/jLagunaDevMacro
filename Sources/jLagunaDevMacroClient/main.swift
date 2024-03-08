@@ -17,8 +17,3 @@ enum Genre {
 print("\(Genre.action.title)")
 print("\(Genre.horror.title)")
 print("\(Genre.comedy.title)")
-
-@SceneSnapshotUITest
-class TestA {
-    
-}
