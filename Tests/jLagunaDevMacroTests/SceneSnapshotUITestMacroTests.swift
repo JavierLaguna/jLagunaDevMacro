@@ -18,6 +18,44 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
           final class CharactersListViewTests: XCTestCase {
 
               
+          func test_charactersListViewStoreStore_xState_iPhoneSe_light_snapshot() {
+              
+              assertSnapshot(
+              
+                  matching: CharactersListView(store: store),
+              
+                  as: .image(
+              
+                      layout: .device(config: .iPhoneSe),
+              
+                      traits: .init(userInterfaceStyle: .light)
+              
+                  )
+              
+              )
+              
+          }
+
+              
+          func test_charactersListViewStoreStore_xState_iPhoneSe_dark_snapshot() {
+              
+              assertSnapshot(
+              
+                  matching: CharactersListView(store: store),
+              
+                  as: .image(
+              
+                      layout: .device(config: .iPhoneSe),
+              
+                      traits: .init(userInterfaceStyle: .dark)
+              
+                  )
+              
+              )
+              
+          }
+
+              
           func test_charactersListViewStoreStore_xState_iPhone13Mini_light_snapshot() {
               
               assertSnapshot(
@@ -56,7 +94,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
           }
 
               
-          func test_charactersListViewStoreStore_xState_iPhone15Pro_light_snapshot() {
+          func test_charactersListViewStoreStore_xState_iPhone13Pro_light_snapshot() {
               
               assertSnapshot(
               
@@ -64,7 +102,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
               
                   as: .image(
               
-                      layout: .device(config: .iPhone15Pro),
+                      layout: .device(config: .iPhone13Pro),
               
                       traits: .init(userInterfaceStyle: .light)
               
@@ -75,7 +113,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
           }
 
               
-          func test_charactersListViewStoreStore_xState_iPhone15Pro_dark_snapshot() {
+          func test_charactersListViewStoreStore_xState_iPhone13Pro_dark_snapshot() {
               
               assertSnapshot(
               
@@ -83,7 +121,45 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
               
                   as: .image(
               
-                      layout: .device(config: .iPhone15Pro),
+                      layout: .device(config: .iPhone13Pro),
+              
+                      traits: .init(userInterfaceStyle: .dark)
+              
+                  )
+              
+              )
+              
+          }
+
+              
+          func test_charactersListViewStoreStore_xState_iPhone13ProMax_light_snapshot() {
+              
+              assertSnapshot(
+              
+                  matching: CharactersListView(store: store),
+              
+                  as: .image(
+              
+                      layout: .device(config: .iPhone13ProMax),
+              
+                      traits: .init(userInterfaceStyle: .light)
+              
+                  )
+              
+              )
+              
+          }
+
+              
+          func test_charactersListViewStoreStore_xState_iPhone13ProMax_dark_snapshot() {
+              
+              assertSnapshot(
+              
+                  matching: CharactersListView(store: store),
+              
+                  as: .image(
+              
+                      layout: .device(config: .iPhone13ProMax),
               
                       traits: .init(userInterfaceStyle: .dark)
               

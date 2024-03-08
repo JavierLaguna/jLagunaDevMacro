@@ -45,8 +45,10 @@ private extension SceneSnapshotUITestMacro {
     static let sceneParamKey = "scene"
     
     enum Devices: String, CaseIterable {
+        case smallest = "iPhoneSe"
         case small = "iPhone13Mini"
-        case medium = "iPhone15Pro"
+        case medium = "iPhone13Pro"
+        case big = "iPhone13ProMax"
     }
     
     enum UIStyle: String, CaseIterable {
