@@ -8,7 +8,13 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
     func testMacro() {
       assertMacro(["SceneSnapshotUITest": SceneSnapshotUITestMacro.self]) {
         """
-        @SceneSnapshotUITest(scene: "CharactersListView(store: store)")
+        @SceneSnapshotUITest(
+            scene: "CharactersListView(store: store)",
+            variants: [
+                .init(name: "nameValue"),
+                .init("name 2"),
+            ]
+        )
         final class CharactersListViewTests: XCTestCase {
             
         }

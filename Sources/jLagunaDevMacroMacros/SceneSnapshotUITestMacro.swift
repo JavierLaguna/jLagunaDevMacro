@@ -4,6 +4,12 @@ import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 
 public struct SceneSnapshotUITestMacro: MemberMacro {
+    
+    public struct Variant {
+        let name: String
+        let params: String
+        let setUp: String
+    }
 
     public static func expansion(
         of node: AttributeSyntax,
@@ -18,6 +24,8 @@ public struct SceneSnapshotUITestMacro: MemberMacro {
         
         let scene = try getSceneName(from: node)
         let funcName = scene.camelCased
+        
+        let variants = try getVariants(from: node)
         
         let funcs = Devices.allCases.map { device in
             UIStyle.allCases.map { style in // TODO: JLI xState
@@ -43,6 +51,7 @@ public struct SceneSnapshotUITestMacro: MemberMacro {
 private extension SceneSnapshotUITestMacro {
     
     static let sceneParamKey = "scene"
+    static let variantsParamKey = "variants"
     
     enum Devices: String, CaseIterable {
         case smallest = "iPhoneSe"
@@ -69,6 +78,24 @@ private extension SceneSnapshotUITestMacro {
             case .sceneInvalidType: "Scene param must be a String."
             case .sceneEmpty: "Scene param can not be empty."
             }
+        }
+    }
+    
+    static func getVariants(from node: SwiftSyntax.AttributeSyntax) throws -> [Variant] {
+        
+        guard let argumentTuple = node.arguments?.as(LabeledExprListSyntax.self)?.first(where: {
+            $0.label?.text == variantsParamKey
+        }) else {
+            return []
+        }
+        
+        guard let arrayExpression = argumentTuple.expression.as(ArrayExprSyntax.self)
+              /*let funcName = stringExpression.representedLiteralValue*/ else {
+            return []
+        }
+        
+        return arrayExpression.elements.map { element in
+            .init(name: "", params: "", setUp: "")
         }
     }
     
