@@ -5,6 +5,8 @@ import SwiftSyntaxMacros
 
 public struct SceneSnapshotUITestMacro: MemberMacro {
     
+    // TODO: JLI Config parameter
+    
     public struct Variant {
         let name: String
         let params: String?
@@ -44,41 +46,41 @@ public struct SceneSnapshotUITestMacro: MemberMacro {
         let funcs = variants.map { variant in
         
             let variantName = variant.name.isEmpty ? "_" : "_\(variant.name)_"
-            let setUp = variantSetUpFunc(variant: variant)
+            let setUp = getVariantSetUpFunc(variant: variant)
             let params = variant.params ?? ""
             
-            return Devices.allCases.map { device in
+            return Device.allCases.map { device in
                 UIStyle.allCases.map { style in
-                    let funcTitle = """
-                    func test_\(funcName)\(variantName)\(device.rawValue)_\(style)_snapshot() {
-                    """
-                    
-                    var setUpFunc = ""
-                    if let setUp {
-                        setUpFunc = """
+                    Orientation.allCases.map { orientation in
+                        let funcTitle = """
+                        func test_\(funcName)\(variantName)\(device.rawValue)_\(style)_snapshot() {
+                        """
                         
-                        \(setUp)
+                        var setUpFunc = ""
+                        if let setUp {
+                            setUpFunc = """
+                            
+                            \(setUp)
+                            """
+                        }
+                        
+                        let assertFunc = """
+                        
+                        assertSnapshot(
+                            matching:\(scene)(\(params)),
+                            \(getImageConfig(device: device, style: style)
+                        )
+                        """
+            
+                        return """
+                            \(funcTitle)
+                            \(setUpFunc)
+                            \(assertFunc)
+                        }
                         """
                     }
-                    
-                    let assertFunc = """
-                    
-                    assertSnapshot(
-                        matching:\(scene)(\(params)),
-                        as: .image(
-                            layout: .device(config: .\(device.rawValue)),
-                            traits: .init(userInterfaceStyle: .\(style))
-                        )
-                    )
-                    """
-        
-                    return """
-                        \(funcTitle)
-                        \(setUpFunc)
-                        \(assertFunc)
-                    }
-                    """
                 }
+                .flatMap { $0 }
             }
             .flatMap { $0 }
         }
@@ -96,16 +98,23 @@ private extension SceneSnapshotUITestMacro {
     static let variantParamsParamKey = "params"
     static let variantSetUpParamKey = "setUp"
     
-    enum Devices: String, CaseIterable {
-        case smallest = "iPhoneSe"
-        case small = "iPhone13Mini"
-        case medium = "iPhone13Pro"
-        case big = "iPhone13ProMax"
+    enum Device: String, CaseIterable {
+        case image
+        case iPhoneSmallest = "iPhoneSe"
+        case iPhoneSmall = "iPhone13Mini"
+        case iPhoneMedium = "iPhoneX"
+        case iPhoneBig = "iPhone13Pro"
+        case iPhoneBigest = "iPhone13ProMax"
     }
     
     enum UIStyle: String, CaseIterable {
         case light
         case dark
+    }
+    
+    enum Orientation: String, CaseIterable {
+        case landscape
+        case portrait
     }
     
     enum Error: Swift.Error, CustomStringConvertible {
@@ -185,11 +194,27 @@ private extension SceneSnapshotUITestMacro {
         }
     }
     
-    static func variantSetUpFunc(variant: Variant) -> String? {
+    static func getVariantSetUpFunc(variant: Variant) -> String? {
         guard let setUp = variant.setUp, !setUp.isEmpty else {
             return nil
         }
         
         return "\(setUp)()"
+    }
+    
+    static func getImageConfig(device: Device, style: UIStyle) -> String {
+        if device == .image {
+            return """
+            as: .image
+            """
+            
+        } else {
+            return """
+            as: .image(
+                layout: .device(config: .\(device.rawValue)),
+                traits: .init(userInterfaceStyle: .\(style))
+            )
+            """
+        }
     }
 }
