@@ -7,8 +7,12 @@ public struct SceneSnapshotUITestMacro: MemberMacro {
     
     public struct Variant {
         let name: String
-        let params: String
-        let setUp: String
+        let params: String?
+        let setUp: String?
+        
+        fileprivate static var defaultVariant: Variant {
+            Variant(name: "", params: nil, setUp: nil)
+        }
     }
 
     public static func expansion(
@@ -25,22 +29,58 @@ public struct SceneSnapshotUITestMacro: MemberMacro {
         let scene = try getSceneName(from: node)
         let funcName = scene.camelCased
         
-        let variants = try getVariants(from: node)
+        var variants = try getVariants(from: node)
         
-        let funcs = Devices.allCases.map { device in
-            UIStyle.allCases.map { style in // TODO: JLI xState
-                """
-                func test_\(funcName)_xState_\(device.rawValue)_\(style)_snapshot() {
+        if variants.isEmpty {
+            variants = [Variant.defaultVariant]
+            
+        } else {
+            let variantNames = variants.map { $0.name }
+            if variantNames.count != Set(variantNames).count {
+                throw Error.variantNameDuplicated
+            }
+        }
+        
+        let funcs = variants.map { variant in
+        
+            let variantName = variant.name.isEmpty ? "_" : "_\(variant.name)_"
+            let setUp = variantSetUpFunc(variant: variant)
+            let params = variant.params ?? ""
+            
+            return Devices.allCases.map { device in
+                UIStyle.allCases.map { style in
+                    let funcTitle = """
+                    func test_\(funcName)\(variantName)\(device.rawValue)_\(style)_snapshot() {
+                    """
+                    
+                    var setUpFunc = ""
+                    if let setUp {
+                        setUpFunc = """
+                        
+                        \(setUp)
+                        """
+                    }
+                    
+                    let assertFunc = """
+                    
                     assertSnapshot(
-                        matching: \(scene),
+                        matching:\(scene)(\(params)),
                         as: .image(
                             layout: .device(config: .\(device.rawValue)),
                             traits: .init(userInterfaceStyle: .\(style))
                         )
                     )
+                    """
+        
+                    return """
+                        \(funcTitle)
+                        \(setUpFunc)
+                        \(assertFunc)
+                    }
+                    """
                 }
-                """
             }
+            .flatMap { $0 }
         }
         .flatMap { $0 }
         
@@ -52,6 +92,9 @@ private extension SceneSnapshotUITestMacro {
     
     static let sceneParamKey = "scene"
     static let variantsParamKey = "variants"
+    static let variantNameParamKey = "name"
+    static let variantParamsParamKey = "params"
+    static let variantSetUpParamKey = "setUp"
     
     enum Devices: String, CaseIterable {
         case smallest = "iPhoneSe"
@@ -70,6 +113,8 @@ private extension SceneSnapshotUITestMacro {
         case sceneNotFound
         case sceneInvalidType
         case sceneEmpty
+        case variantNameDuplicated
+        case variantNameEmpty
         
         var description: String {
             switch self {
@@ -77,25 +122,9 @@ private extension SceneSnapshotUITestMacro {
             case .sceneNotFound: "Required scene param."
             case .sceneInvalidType: "Scene param must be a String."
             case .sceneEmpty: "Scene param can not be empty."
+            case .variantNameDuplicated: "Variant name can not be duplicated."
+            case .variantNameEmpty: "Variant name param can not be empty."
             }
-        }
-    }
-    
-    static func getVariants(from node: SwiftSyntax.AttributeSyntax) throws -> [Variant] {
-        
-        guard let argumentTuple = node.arguments?.as(LabeledExprListSyntax.self)?.first(where: {
-            $0.label?.text == variantsParamKey
-        }) else {
-            return []
-        }
-        
-        guard let arrayExpression = argumentTuple.expression.as(ArrayExprSyntax.self)
-              /*let funcName = stringExpression.representedLiteralValue*/ else {
-            return []
-        }
-        
-        return arrayExpression.elements.map { element in
-            .init(name: "", params: "", setUp: "")
         }
     }
     
@@ -117,5 +146,50 @@ private extension SceneSnapshotUITestMacro {
         }
         
         return funcName
+    }
+    
+    static func getVariants(from node: SwiftSyntax.AttributeSyntax) throws -> [Variant] {
+        
+        guard let argumentTuple = node.arguments?.as(LabeledExprListSyntax.self)?.first(where: {
+            $0.label?.text == variantsParamKey
+        }) else {
+            return []
+        }
+        
+        guard let arrayExpression = argumentTuple.expression.as(ArrayExprSyntax.self) else {
+            return []
+        }
+        
+        return try arrayExpression.elements.map { element in
+            let arguments = element.expression.as(FunctionCallExprSyntax.self)?.arguments
+            
+            let nameArgument = arguments?.first(where: {
+                $0.label?.text == variantNameParamKey
+            })?.expression.as(StringLiteralExprSyntax.self)?.segments.first?.as(StringSegmentSyntax.self)
+            
+            guard let name = nameArgument?.content.text, !name.isEmpty else {
+                throw Error.variantNameEmpty
+            }
+            
+            let paramsArgument = arguments?.first(where: {
+                $0.label?.text == variantParamsParamKey
+            })?.expression.as(StringLiteralExprSyntax.self)?.segments.first?.as(StringSegmentSyntax.self)
+            let params = paramsArgument?.content.text ?? ""
+            
+            let setUpArgument = arguments?.first(where: {
+                $0.label?.text == variantSetUpParamKey
+            })?.expression.as(StringLiteralExprSyntax.self)?.segments.first?.as(StringSegmentSyntax.self)
+            let setUp = setUpArgument?.content.text ?? ""
+            
+            return .init(name: name, params: params, setUp: setUp)
+        }
+    }
+    
+    static func variantSetUpFunc(variant: Variant) -> String? {
+        guard let setUp = variant.setUp, !setUp.isEmpty else {
+            return nil
+        }
+        
+        return "\(setUp)()"
     }
 }

@@ -1,5 +1,3 @@
-import jLagunaDevMacroMacros
-
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
@@ -18,5 +16,5 @@ public macro EnumTitle() = #externalMacro(module: "jLagunaDevMacroMacros", type:
 @attached(member, names: arbitrary)
 public macro SceneSnapshotUITest(
     scene: String,
-    variants: [SceneSnapshotUITestMacro.Variant]
+    variants: [Any] = [] // TODO: JLI
 ) = #externalMacro(module: "jLagunaDevMacroMacros", type: "SceneSnapshotUITestMacro")
