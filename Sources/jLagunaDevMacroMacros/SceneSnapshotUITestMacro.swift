@@ -6,6 +6,7 @@ import SwiftSyntaxMacros
 public struct SceneSnapshotUITestMacro: MemberMacro {
     
     // TODO: JLI Config parameter
+    private static let useOrientations = false
     
     public struct Variant {
         let name: String
@@ -202,16 +203,26 @@ private extension SceneSnapshotUITestMacro {
         return "\(setUp)()"
     }
     
-    static func getImageConfig(device: Device, style: UIStyle) -> String {
+    static func getImageConfig(
+        device: Device,
+        style: UIStyle,
+        orientation: Orientation
+    ) -> String {
+        
         if device == .image {
             return """
             as: .image
             """
             
         } else {
+            var orientationValue = ""
+            if useOrientations {
+                orientationValue = "(.\(orientation)"
+            }
+            
             return """
             as: .image(
-                layout: .device(config: .\(device.rawValue)),
+                layout: .device(config: .\(device.rawValue)\(orientationValue),
                 traits: .init(userInterfaceStyle: .\(style))
             )
             """
