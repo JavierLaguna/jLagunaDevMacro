@@ -68,8 +68,8 @@ public struct SceneSnapshotUITestMacro: MemberMacro {
                         let assertFunc = """
                         
                         assertSnapshot(
-                            matching:\(scene)(\(params)),
-                            \(getImageConfig(device: device, style: style, orientation: nil)
+                            matching: \(scene)(\(params)),
+                            \(getImageConfig(device: device, style: style, orientation: nil))
                         )
                         """
             
@@ -222,7 +222,7 @@ private extension SceneSnapshotUITestMacro {
             
             return """
             as: .image(
-                layout: .device(config: .\(device.rawValue)\(orientationValue),
+                layout: .device(config: .\(device.rawValue)\(orientationValue)),
                 traits: .init(userInterfaceStyle: .\(style))
             )
             """

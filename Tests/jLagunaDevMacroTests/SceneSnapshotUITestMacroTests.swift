@@ -30,6 +30,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                   assertSnapshot(
                       matching: CharactersListView(foo: bar),
                       as: .image
+                  )
               }
 
               func test_charactersListView_variantOne_image_dark_snapshot() {
@@ -39,6 +40,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                   assertSnapshot(
                       matching: CharactersListView(foo: bar),
                       as: .image
+                  )
               }
 
               func test_charactersListView_variantOne_iPhoneSe_light_snapshot() {
@@ -50,6 +52,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                       as: .image(
                       layout: .device(config: .iPhoneSe,
                       traits: .init(userInterfaceStyle: .light)
+                      )
                       )
               }
 
@@ -63,6 +66,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                       layout: .device(config: .iPhoneSe,
                       traits: .init(userInterfaceStyle: .dark)
                       )
+                      )
               }
 
               func test_charactersListView_variantOne_iPhone13Mini_light_snapshot() {
@@ -74,6 +78,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                       as: .image(
                       layout: .device(config: .iPhone13Mini,
                       traits: .init(userInterfaceStyle: .light)
+                      )
                       )
               }
 
@@ -87,6 +92,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                       layout: .device(config: .iPhone13Mini,
                       traits: .init(userInterfaceStyle: .dark)
                       )
+                      )
               }
 
               func test_charactersListView_variantOne_iPhoneX_light_snapshot() {
@@ -98,6 +104,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                       as: .image(
                       layout: .device(config: .iPhoneX,
                       traits: .init(userInterfaceStyle: .light)
+                      )
                       )
               }
 
@@ -111,6 +118,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                       layout: .device(config: .iPhoneX,
                       traits: .init(userInterfaceStyle: .dark)
                       )
+                      )
               }
 
               func test_charactersListView_variantOne_iPhone13Pro_light_snapshot() {
@@ -122,6 +130,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                       as: .image(
                       layout: .device(config: .iPhone13Pro,
                       traits: .init(userInterfaceStyle: .light)
+                      )
                       )
               }
 
@@ -135,6 +144,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                       layout: .device(config: .iPhone13Pro,
                       traits: .init(userInterfaceStyle: .dark)
                       )
+                      )
               }
 
               func test_charactersListView_variantOne_iPhone13ProMax_light_snapshot() {
@@ -146,6 +156,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                       as: .image(
                       layout: .device(config: .iPhone13ProMax,
                       traits: .init(userInterfaceStyle: .light)
+                      )
                       )
               }
 
@@ -159,6 +170,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                       layout: .device(config: .iPhone13ProMax,
                       traits: .init(userInterfaceStyle: .dark)
                       )
+                      )
               }
 
               func test_charactersListView_variantTwo_image_light_snapshot() {
@@ -167,6 +179,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                   assertSnapshot(
                       matching: CharactersListView(),
                       as: .image
+                  )
               }
 
               func test_charactersListView_variantTwo_image_dark_snapshot() {
@@ -175,6 +188,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                   assertSnapshot(
                       matching: CharactersListView(),
                       as: .image
+                  )
               }
 
               func test_charactersListView_variantTwo_iPhoneSe_light_snapshot() {
@@ -185,6 +199,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                       as: .image(
                       layout: .device(config: .iPhoneSe,
                       traits: .init(userInterfaceStyle: .light)
+                      )
                       )
               }
 
@@ -197,6 +212,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                       layout: .device(config: .iPhoneSe,
                       traits: .init(userInterfaceStyle: .dark)
                       )
+                      )
               }
 
               func test_charactersListView_variantTwo_iPhone13Mini_light_snapshot() {
@@ -207,6 +223,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                       as: .image(
                       layout: .device(config: .iPhone13Mini,
                       traits: .init(userInterfaceStyle: .light)
+                      )
                       )
               }
 
@@ -219,6 +236,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                       layout: .device(config: .iPhone13Mini,
                       traits: .init(userInterfaceStyle: .dark)
                       )
+                      )
               }
 
               func test_charactersListView_variantTwo_iPhoneX_light_snapshot() {
@@ -229,6 +247,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                       as: .image(
                       layout: .device(config: .iPhoneX,
                       traits: .init(userInterfaceStyle: .light)
+                      )
                       )
               }
 
@@ -241,6 +260,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                       layout: .device(config: .iPhoneX,
                       traits: .init(userInterfaceStyle: .dark)
                       )
+                      )
               }
 
               func test_charactersListView_variantTwo_iPhone13Pro_light_snapshot() {
@@ -251,6 +271,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                       as: .image(
                       layout: .device(config: .iPhone13Pro,
                       traits: .init(userInterfaceStyle: .light)
+                      )
                       )
               }
 
@@ -263,6 +284,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                       layout: .device(config: .iPhone13Pro,
                       traits: .init(userInterfaceStyle: .dark)
                       )
+                      )
               }
 
               func test_charactersListView_variantTwo_iPhone13ProMax_light_snapshot() {
@@ -274,6 +296,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                       layout: .device(config: .iPhone13ProMax,
                       traits: .init(userInterfaceStyle: .light)
                       )
+                      )
               }
 
               func test_charactersListView_variantTwo_iPhone13ProMax_dark_snapshot() {
@@ -284,6 +307,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                       as: .image(
                       layout: .device(config: .iPhone13ProMax,
                       traits: .init(userInterfaceStyle: .dark)
+                      )
                       )
               }
               
