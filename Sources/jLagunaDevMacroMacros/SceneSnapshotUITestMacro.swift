@@ -69,7 +69,7 @@ public struct SceneSnapshotUITestMacro: MemberMacro {
                         
                         assertSnapshot(
                             matching:\(scene)(\(params)),
-                            \(getImageConfig(device: device, style: style)
+                            \(getImageConfig(device: device, style: style, orientation: nil)
                         )
                         """
             
@@ -206,7 +206,7 @@ private extension SceneSnapshotUITestMacro {
     static func getImageConfig(
         device: Device,
         style: UIStyle,
-        orientation: Orientation
+        orientation: Orientation?
     ) -> String {
         
         if device == .image {
@@ -216,7 +216,7 @@ private extension SceneSnapshotUITestMacro {
             
         } else {
             var orientationValue = ""
-            if useOrientations {
+            if useOrientations, let orientation {
                 orientationValue = "(.\(orientation)"
             }
             
