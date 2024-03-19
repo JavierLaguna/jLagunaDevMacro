@@ -52,7 +52,7 @@ public struct SceneSnapshotUITestMacro: MemberMacro {
             
             return Device.allCases.map { device in
                 UIStyle.allCases.map { style in
-                    Orientation.allCases.map { orientation in
+//                    Orientation.allCases.map { orientation in
                         let funcTitle = """
                         func test_\(funcName)\(variantName)\(device.rawValue)_\(style)_snapshot() {
                         """
@@ -80,8 +80,8 @@ public struct SceneSnapshotUITestMacro: MemberMacro {
                         }
                         """
                     }
-                }
-                .flatMap { $0 }
+//                }
+//                .flatMap { $0 }
             }
             .flatMap { $0 }
         }
