@@ -210,6 +210,7 @@ private extension SceneSnapshotUITestMacro {
     ) -> String {
         
         if device == .image {
+            // TODO: JLI DARK AND LIGHT DUPLICATED :/
             return """
             as: .image
             """
