@@ -66,7 +66,7 @@ public struct SceneSnapshotUITestMacro: MemberMacro {
                         }
                         
                         let assertFunc = """
-                        
+
                         assertSnapshot(
                             matching: \(scene)(\(params)),
                             \(getImageConfig(device: device, style: style, orientation: nil))
@@ -184,12 +184,12 @@ private extension SceneSnapshotUITestMacro {
             let paramsArgument = arguments?.first(where: {
                 $0.label?.text == variantParamsParamKey
             })?.expression.as(StringLiteralExprSyntax.self)?.segments.first?.as(StringSegmentSyntax.self)
-            let params = paramsArgument?.content.text ?? ""
+            let params = paramsArgument?.content.text
             
             let setUpArgument = arguments?.first(where: {
                 $0.label?.text == variantSetUpParamKey
             })?.expression.as(StringLiteralExprSyntax.self)?.segments.first?.as(StringSegmentSyntax.self)
-            let setUp = setUpArgument?.content.text ?? ""
+            let setUp = setUpArgument?.content.text
             
             return .init(name: name, params: params, setUp: setUp)
         }

@@ -6,7 +6,366 @@ import MacroTesting
 final class SceneSnapshotUITestMacroTests: XCTestCase {
     
     func testMacro() {
-      assertMacro(["SceneSnapshotUITest": SceneSnapshotUITestMacro.self]) {
+        assertMacro(["SceneSnapshotUITest": SceneSnapshotUITestMacro.self]) {
+        """
+        @SceneSnapshotUITest(scene: "LoadingView")
+        final class LoadingViewTests: XCTestCase {
+            
+        }
+        """
+        } expansion: {
+            """
+            final class LoadingViewTests: XCTestCase {
+
+                
+            func test_loadingView_image_light_snapshot() {
+
+
+
+
+
+                
+            assertSnapshot(
+
+                
+                matching: LoadingView(),
+
+                
+                as: .image
+
+                
+            )
+                
+            }
+
+                
+            func test_loadingView_image_dark_snapshot() {
+
+
+
+
+
+                
+            assertSnapshot(
+
+                
+                matching: LoadingView(),
+
+                
+                as: .image
+
+                
+            )
+                
+            }
+
+                
+            func test_loadingView_iPhoneSe_light_snapshot() {
+
+
+
+
+
+                
+            assertSnapshot(
+
+                
+                matching: LoadingView(),
+
+                
+                as: .image(
+
+                
+                layout: .device(config: .iPhoneSe),
+
+                
+                traits: .init(userInterfaceStyle: .light)
+
+                
+                )
+
+                
+            )
+                
+            }
+
+                
+            func test_loadingView_iPhoneSe_dark_snapshot() {
+
+
+
+
+
+                
+            assertSnapshot(
+
+                
+                matching: LoadingView(),
+
+                
+                as: .image(
+
+                
+                layout: .device(config: .iPhoneSe),
+
+                
+                traits: .init(userInterfaceStyle: .dark)
+
+                
+                )
+
+                
+            )
+                
+            }
+
+                
+            func test_loadingView_iPhone13Mini_light_snapshot() {
+
+
+
+
+
+                
+            assertSnapshot(
+
+                
+                matching: LoadingView(),
+
+                
+                as: .image(
+
+                
+                layout: .device(config: .iPhone13Mini),
+
+                
+                traits: .init(userInterfaceStyle: .light)
+
+                
+                )
+
+                
+            )
+                
+            }
+
+                
+            func test_loadingView_iPhone13Mini_dark_snapshot() {
+
+
+
+
+
+                
+            assertSnapshot(
+
+                
+                matching: LoadingView(),
+
+                
+                as: .image(
+
+                
+                layout: .device(config: .iPhone13Mini),
+
+                
+                traits: .init(userInterfaceStyle: .dark)
+
+                
+                )
+
+                
+            )
+                
+            }
+
+                
+            func test_loadingView_iPhoneX_light_snapshot() {
+
+
+
+
+
+                
+            assertSnapshot(
+
+                
+                matching: LoadingView(),
+
+                
+                as: .image(
+
+                
+                layout: .device(config: .iPhoneX),
+
+                
+                traits: .init(userInterfaceStyle: .light)
+
+                
+                )
+
+                
+            )
+                
+            }
+
+                
+            func test_loadingView_iPhoneX_dark_snapshot() {
+
+
+
+
+
+                
+            assertSnapshot(
+
+                
+                matching: LoadingView(),
+
+                
+                as: .image(
+
+                
+                layout: .device(config: .iPhoneX),
+
+                
+                traits: .init(userInterfaceStyle: .dark)
+
+                
+                )
+
+                
+            )
+                
+            }
+
+                
+            func test_loadingView_iPhone13Pro_light_snapshot() {
+
+
+
+
+
+                
+            assertSnapshot(
+
+                
+                matching: LoadingView(),
+
+                
+                as: .image(
+
+                
+                layout: .device(config: .iPhone13Pro),
+
+                
+                traits: .init(userInterfaceStyle: .light)
+
+                
+                )
+
+                
+            )
+                
+            }
+
+                
+            func test_loadingView_iPhone13Pro_dark_snapshot() {
+
+
+
+
+
+                
+            assertSnapshot(
+
+                
+                matching: LoadingView(),
+
+                
+                as: .image(
+
+                
+                layout: .device(config: .iPhone13Pro),
+
+                
+                traits: .init(userInterfaceStyle: .dark)
+
+                
+                )
+
+                
+            )
+                
+            }
+
+                
+            func test_loadingView_iPhone13ProMax_light_snapshot() {
+
+
+
+
+
+                
+            assertSnapshot(
+
+                
+                matching: LoadingView(),
+
+                
+                as: .image(
+
+                
+                layout: .device(config: .iPhone13ProMax),
+
+                
+                traits: .init(userInterfaceStyle: .light)
+
+                
+                )
+
+                
+            )
+                
+            }
+
+                
+            func test_loadingView_iPhone13ProMax_dark_snapshot() {
+
+
+
+
+
+                
+            assertSnapshot(
+
+                
+                matching: LoadingView(),
+
+                
+                as: .image(
+
+                
+                layout: .device(config: .iPhone13ProMax),
+
+                
+                traits: .init(userInterfaceStyle: .dark)
+
+                
+                )
+
+                
+            )
+                
+            }
+                
+            }
+            """
+        }
+    }
+    
+    func testMacroWithVariants() {
+        assertMacro(["SceneSnapshotUITest": SceneSnapshotUITestMacro.self]) {
         """
         @SceneSnapshotUITest(
             scene: "CharactersListView",
@@ -19,301 +378,301 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             
         }
         """
-      } expansion: {
-          """
-          final class CharactersListViewTests: XCTestCase {
-
-              func test_charactersListView_variantOne_image_light_snapshot() {
-
-                  setUpOneFunc()
+        } expansion: {
+            """
+            final class CharactersListViewTests: XCTestCase {
+
+                func test_charactersListView_variantOne_image_light_snapshot() {
+
+                    setUpOneFunc()
 
-                  assertSnapshot(
-                      matching: CharactersListView(foo: bar),
-                      as: .image
-                  )
-              }
-
-              func test_charactersListView_variantOne_image_dark_snapshot() {
-
-                  setUpOneFunc()
-
-                  assertSnapshot(
-                      matching: CharactersListView(foo: bar),
-                      as: .image
-                  )
-              }
-
-              func test_charactersListView_variantOne_iPhoneSe_light_snapshot() {
-
-                  setUpOneFunc()
-
-                  assertSnapshot(
-                      matching: CharactersListView(foo: bar),
-                      as: .image(
-                      layout: .device(config: .iPhoneSe,
-                      traits: .init(userInterfaceStyle: .light)
-                      )
-                      )
-              }
-
-              func test_charactersListView_variantOne_iPhoneSe_dark_snapshot() {
-
-                  setUpOneFunc()
-
-                  assertSnapshot(
-                      matching: CharactersListView(foo: bar),
-                      as: .image(
-                      layout: .device(config: .iPhoneSe,
-                      traits: .init(userInterfaceStyle: .dark)
-                      )
-                      )
-              }
-
-              func test_charactersListView_variantOne_iPhone13Mini_light_snapshot() {
-
-                  setUpOneFunc()
-
-                  assertSnapshot(
-                      matching: CharactersListView(foo: bar),
-                      as: .image(
-                      layout: .device(config: .iPhone13Mini,
-                      traits: .init(userInterfaceStyle: .light)
-                      )
-                      )
-              }
-
-              func test_charactersListView_variantOne_iPhone13Mini_dark_snapshot() {
-
-                  setUpOneFunc()
+                    assertSnapshot(
+                        matching: CharactersListView(foo: bar),
+                        as: .image
+                    )
+                }
+
+                func test_charactersListView_variantOne_image_dark_snapshot() {
+
+                    setUpOneFunc()
+
+                    assertSnapshot(
+                        matching: CharactersListView(foo: bar),
+                        as: .image
+                    )
+                }
+
+                func test_charactersListView_variantOne_iPhoneSe_light_snapshot() {
+
+                    setUpOneFunc()
+
+                    assertSnapshot(
+                        matching: CharactersListView(foo: bar),
+                        as: .image(
+                        layout: .device(config: .iPhoneSe),
+                        traits: .init(userInterfaceStyle: .light)
+                        )
+                    )
+                }
+
+                func test_charactersListView_variantOne_iPhoneSe_dark_snapshot() {
+
+                    setUpOneFunc()
+
+                    assertSnapshot(
+                        matching: CharactersListView(foo: bar),
+                        as: .image(
+                        layout: .device(config: .iPhoneSe),
+                        traits: .init(userInterfaceStyle: .dark)
+                        )
+                    )
+                }
+
+                func test_charactersListView_variantOne_iPhone13Mini_light_snapshot() {
+
+                    setUpOneFunc()
+
+                    assertSnapshot(
+                        matching: CharactersListView(foo: bar),
+                        as: .image(
+                        layout: .device(config: .iPhone13Mini),
+                        traits: .init(userInterfaceStyle: .light)
+                        )
+                    )
+                }
+
+                func test_charactersListView_variantOne_iPhone13Mini_dark_snapshot() {
+
+                    setUpOneFunc()
 
-                  assertSnapshot(
-                      matching: CharactersListView(foo: bar),
-                      as: .image(
-                      layout: .device(config: .iPhone13Mini,
-                      traits: .init(userInterfaceStyle: .dark)
-                      )
-                      )
-              }
+                    assertSnapshot(
+                        matching: CharactersListView(foo: bar),
+                        as: .image(
+                        layout: .device(config: .iPhone13Mini),
+                        traits: .init(userInterfaceStyle: .dark)
+                        )
+                    )
+                }
 
-              func test_charactersListView_variantOne_iPhoneX_light_snapshot() {
+                func test_charactersListView_variantOne_iPhoneX_light_snapshot() {
 
-                  setUpOneFunc()
+                    setUpOneFunc()
 
-                  assertSnapshot(
-                      matching: CharactersListView(foo: bar),
-                      as: .image(
-                      layout: .device(config: .iPhoneX,
-                      traits: .init(userInterfaceStyle: .light)
-                      )
-                      )
-              }
+                    assertSnapshot(
+                        matching: CharactersListView(foo: bar),
+                        as: .image(
+                        layout: .device(config: .iPhoneX),
+                        traits: .init(userInterfaceStyle: .light)
+                        )
+                    )
+                }
 
-              func test_charactersListView_variantOne_iPhoneX_dark_snapshot() {
+                func test_charactersListView_variantOne_iPhoneX_dark_snapshot() {
 
-                  setUpOneFunc()
+                    setUpOneFunc()
 
-                  assertSnapshot(
-                      matching: CharactersListView(foo: bar),
-                      as: .image(
-                      layout: .device(config: .iPhoneX,
-                      traits: .init(userInterfaceStyle: .dark)
-                      )
-                      )
-              }
+                    assertSnapshot(
+                        matching: CharactersListView(foo: bar),
+                        as: .image(
+                        layout: .device(config: .iPhoneX),
+                        traits: .init(userInterfaceStyle: .dark)
+                        )
+                    )
+                }
 
-              func test_charactersListView_variantOne_iPhone13Pro_light_snapshot() {
+                func test_charactersListView_variantOne_iPhone13Pro_light_snapshot() {
 
-                  setUpOneFunc()
+                    setUpOneFunc()
 
-                  assertSnapshot(
-                      matching: CharactersListView(foo: bar),
-                      as: .image(
-                      layout: .device(config: .iPhone13Pro,
-                      traits: .init(userInterfaceStyle: .light)
-                      )
-                      )
-              }
+                    assertSnapshot(
+                        matching: CharactersListView(foo: bar),
+                        as: .image(
+                        layout: .device(config: .iPhone13Pro),
+                        traits: .init(userInterfaceStyle: .light)
+                        )
+                    )
+                }
 
-              func test_charactersListView_variantOne_iPhone13Pro_dark_snapshot() {
+                func test_charactersListView_variantOne_iPhone13Pro_dark_snapshot() {
 
-                  setUpOneFunc()
+                    setUpOneFunc()
 
-                  assertSnapshot(
-                      matching: CharactersListView(foo: bar),
-                      as: .image(
-                      layout: .device(config: .iPhone13Pro,
-                      traits: .init(userInterfaceStyle: .dark)
-                      )
-                      )
-              }
+                    assertSnapshot(
+                        matching: CharactersListView(foo: bar),
+                        as: .image(
+                        layout: .device(config: .iPhone13Pro),
+                        traits: .init(userInterfaceStyle: .dark)
+                        )
+                    )
+                }
 
-              func test_charactersListView_variantOne_iPhone13ProMax_light_snapshot() {
+                func test_charactersListView_variantOne_iPhone13ProMax_light_snapshot() {
 
-                  setUpOneFunc()
+                    setUpOneFunc()
 
-                  assertSnapshot(
-                      matching: CharactersListView(foo: bar),
-                      as: .image(
-                      layout: .device(config: .iPhone13ProMax,
-                      traits: .init(userInterfaceStyle: .light)
-                      )
-                      )
-              }
+                    assertSnapshot(
+                        matching: CharactersListView(foo: bar),
+                        as: .image(
+                        layout: .device(config: .iPhone13ProMax),
+                        traits: .init(userInterfaceStyle: .light)
+                        )
+                    )
+                }
 
-              func test_charactersListView_variantOne_iPhone13ProMax_dark_snapshot() {
+                func test_charactersListView_variantOne_iPhone13ProMax_dark_snapshot() {
 
-                  setUpOneFunc()
+                    setUpOneFunc()
 
-                  assertSnapshot(
-                      matching: CharactersListView(foo: bar),
-                      as: .image(
-                      layout: .device(config: .iPhone13ProMax,
-                      traits: .init(userInterfaceStyle: .dark)
-                      )
-                      )
-              }
+                    assertSnapshot(
+                        matching: CharactersListView(foo: bar),
+                        as: .image(
+                        layout: .device(config: .iPhone13ProMax),
+                        traits: .init(userInterfaceStyle: .dark)
+                        )
+                    )
+                }
 
-              func test_charactersListView_variantTwo_image_light_snapshot() {
+                func test_charactersListView_variantTwo_image_light_snapshot() {
 
 
-                  assertSnapshot(
-                      matching: CharactersListView(),
-                      as: .image
-                  )
-              }
+                    assertSnapshot(
+                        matching: CharactersListView(),
+                        as: .image
+                    )
+                }
 
-              func test_charactersListView_variantTwo_image_dark_snapshot() {
+                func test_charactersListView_variantTwo_image_dark_snapshot() {
 
 
-                  assertSnapshot(
-                      matching: CharactersListView(),
-                      as: .image
-                  )
-              }
+                    assertSnapshot(
+                        matching: CharactersListView(),
+                        as: .image
+                    )
+                }
 
-              func test_charactersListView_variantTwo_iPhoneSe_light_snapshot() {
+                func test_charactersListView_variantTwo_iPhoneSe_light_snapshot() {
 
 
-                  assertSnapshot(
-                      matching: CharactersListView(),
-                      as: .image(
-                      layout: .device(config: .iPhoneSe,
-                      traits: .init(userInterfaceStyle: .light)
-                      )
-                      )
-              }
+                    assertSnapshot(
+                        matching: CharactersListView(),
+                        as: .image(
+                        layout: .device(config: .iPhoneSe),
+                        traits: .init(userInterfaceStyle: .light)
+                        )
+                    )
+                }
 
-              func test_charactersListView_variantTwo_iPhoneSe_dark_snapshot() {
+                func test_charactersListView_variantTwo_iPhoneSe_dark_snapshot() {
 
 
-                  assertSnapshot(
-                      matching: CharactersListView(),
-                      as: .image(
-                      layout: .device(config: .iPhoneSe,
-                      traits: .init(userInterfaceStyle: .dark)
-                      )
-                      )
-              }
-
-              func test_charactersListView_variantTwo_iPhone13Mini_light_snapshot() {
-
-
-                  assertSnapshot(
-                      matching: CharactersListView(),
-                      as: .image(
-                      layout: .device(config: .iPhone13Mini,
-                      traits: .init(userInterfaceStyle: .light)
-                      )
-                      )
-              }
-
-              func test_charactersListView_variantTwo_iPhone13Mini_dark_snapshot() {
-
-
-                  assertSnapshot(
-                      matching: CharactersListView(),
-                      as: .image(
-                      layout: .device(config: .iPhone13Mini,
-                      traits: .init(userInterfaceStyle: .dark)
-                      )
-                      )
-              }
-
-              func test_charactersListView_variantTwo_iPhoneX_light_snapshot() {
-
-
-                  assertSnapshot(
-                      matching: CharactersListView(),
-                      as: .image(
-                      layout: .device(config: .iPhoneX,
-                      traits: .init(userInterfaceStyle: .light)
-                      )
-                      )
-              }
-
-              func test_charactersListView_variantTwo_iPhoneX_dark_snapshot() {
-
-
-                  assertSnapshot(
-                      matching: CharactersListView(),
-                      as: .image(
-                      layout: .device(config: .iPhoneX,
-                      traits: .init(userInterfaceStyle: .dark)
-                      )
-                      )
-              }
-
-              func test_charactersListView_variantTwo_iPhone13Pro_light_snapshot() {
-
-
-                  assertSnapshot(
-                      matching: CharactersListView(),
-                      as: .image(
-                      layout: .device(config: .iPhone13Pro,
-                      traits: .init(userInterfaceStyle: .light)
-                      )
-                      )
-              }
-
-              func test_charactersListView_variantTwo_iPhone13Pro_dark_snapshot() {
-
-
-                  assertSnapshot(
-                      matching: CharactersListView(),
-                      as: .image(
-                      layout: .device(config: .iPhone13Pro,
-                      traits: .init(userInterfaceStyle: .dark)
-                      )
-                      )
-              }
-
-              func test_charactersListView_variantTwo_iPhone13ProMax_light_snapshot() {
-
-
-                  assertSnapshot(
-                      matching: CharactersListView(),
-                      as: .image(
-                      layout: .device(config: .iPhone13ProMax,
-                      traits: .init(userInterfaceStyle: .light)
-                      )
-                      )
-              }
-
-              func test_charactersListView_variantTwo_iPhone13ProMax_dark_snapshot() {
-
-
-                  assertSnapshot(
-                      matching: CharactersListView(),
-                      as: .image(
-                      layout: .device(config: .iPhone13ProMax,
-                      traits: .init(userInterfaceStyle: .dark)
-                      )
-                      )
-              }
-              
-          }
-          """
-      }
+                    assertSnapshot(
+                        matching: CharactersListView(),
+                        as: .image(
+                        layout: .device(config: .iPhoneSe),
+                        traits: .init(userInterfaceStyle: .dark)
+                        )
+                    )
+                }
+
+                func test_charactersListView_variantTwo_iPhone13Mini_light_snapshot() {
+
+
+                    assertSnapshot(
+                        matching: CharactersListView(),
+                        as: .image(
+                        layout: .device(config: .iPhone13Mini),
+                        traits: .init(userInterfaceStyle: .light)
+                        )
+                    )
+                }
+
+                func test_charactersListView_variantTwo_iPhone13Mini_dark_snapshot() {
+
+
+                    assertSnapshot(
+                        matching: CharactersListView(),
+                        as: .image(
+                        layout: .device(config: .iPhone13Mini),
+                        traits: .init(userInterfaceStyle: .dark)
+                        )
+                    )
+                }
+
+                func test_charactersListView_variantTwo_iPhoneX_light_snapshot() {
+
+
+                    assertSnapshot(
+                        matching: CharactersListView(),
+                        as: .image(
+                        layout: .device(config: .iPhoneX),
+                        traits: .init(userInterfaceStyle: .light)
+                        )
+                    )
+                }
+
+                func test_charactersListView_variantTwo_iPhoneX_dark_snapshot() {
+
+
+                    assertSnapshot(
+                        matching: CharactersListView(),
+                        as: .image(
+                        layout: .device(config: .iPhoneX),
+                        traits: .init(userInterfaceStyle: .dark)
+                        )
+                    )
+                }
+
+                func test_charactersListView_variantTwo_iPhone13Pro_light_snapshot() {
+
+
+                    assertSnapshot(
+                        matching: CharactersListView(),
+                        as: .image(
+                        layout: .device(config: .iPhone13Pro),
+                        traits: .init(userInterfaceStyle: .light)
+                        )
+                    )
+                }
+
+                func test_charactersListView_variantTwo_iPhone13Pro_dark_snapshot() {
+
+
+                    assertSnapshot(
+                        matching: CharactersListView(),
+                        as: .image(
+                        layout: .device(config: .iPhone13Pro),
+                        traits: .init(userInterfaceStyle: .dark)
+                        )
+                    )
+                }
+
+                func test_charactersListView_variantTwo_iPhone13ProMax_light_snapshot() {
+
+
+                    assertSnapshot(
+                        matching: CharactersListView(),
+                        as: .image(
+                        layout: .device(config: .iPhone13ProMax),
+                        traits: .init(userInterfaceStyle: .light)
+                        )
+                    )
+                }
+
+                func test_charactersListView_variantTwo_iPhone13ProMax_dark_snapshot() {
+
+
+                    assertSnapshot(
+                        matching: CharactersListView(),
+                        as: .image(
+                        layout: .device(config: .iPhone13ProMax),
+                        traits: .init(userInterfaceStyle: .dark)
+                        )
+                    )
+                }
+                
+            }
+            """
+        }
     }
     
     func testMacroRequiredSceneError() {
