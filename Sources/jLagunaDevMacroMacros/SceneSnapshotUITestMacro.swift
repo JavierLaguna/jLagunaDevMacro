@@ -17,7 +17,7 @@ public struct SceneSnapshotUITestMacro: MemberMacro {
             Variant(name: "", params: nil, setUp: nil)
         }
     }
-
+    
     public static func expansion(
         of node: AttributeSyntax,
         providingMembersOf declaration: some DeclGroupSyntax,
@@ -44,46 +44,75 @@ public struct SceneSnapshotUITestMacro: MemberMacro {
             }
         }
         
-        let funcs = variants.map { variant in
-        
+        let funcs: [String] = variants.map { variant in
+            
             let variantName = variant.name.isEmpty ? "_" : "_\(variant.name)_"
             let setUp = getVariantSetUpFunc(variant: variant)
             let params = variant.params ?? ""
             
-            return Device.allCases.map { device in
-                UIStyle.allCases.map { style in
-//                    Orientation.allCases.map { orientation in
-                        let funcTitle = """
-                        func test_\(funcName)\(variantName)\(device.rawValue)_\(style)_snapshot() {
+            let deviceTests = Device.allCases.map { device in
+                if device == .image {
+                    let funcTitle = """
+                        func test_\(funcName)\(variantName)\(device.rawValue)_snapshot() {
                         """
-                        
-                        var setUpFunc = ""
-                        if let setUp {
-                            setUpFunc = """
+                    
+                    var setUpFunc = ""
+                    if let setUp {
+                        setUpFunc = """
                             
                             \(setUp)
                             """
-                        }
+                    }
+                    
+                    let assertFunc = """
                         
-                        let assertFunc = """
-
+                        assertSnapshot(
+                            matching: \(scene)(\(params)),
+                            \(getImageConfig(device: device, style: .light, orientation: nil))
+                        )
+                        """
+                    
+                    return ["""
+                            \(funcTitle)
+                            \(setUpFunc)
+                            \(assertFunc)
+                        }
+                        """]
+                }
+                
+                let withStyleTests = UIStyle.allCases.map { style in
+                    let funcTitle = """
+                        func test_\(funcName)\(variantName)\(device.rawValue)_\(style)_snapshot() {
+                        """
+                    
+                    var setUpFunc = ""
+                    if let setUp {
+                        setUpFunc = """
+                            
+                            \(setUp)
+                            """
+                    }
+                    
+                    let assertFunc = """
+                        
                         assertSnapshot(
                             matching: \(scene)(\(params)),
                             \(getImageConfig(device: device, style: style, orientation: nil))
                         )
                         """
-            
-                        return """
+                    
+                    return """
                             \(funcTitle)
                             \(setUpFunc)
                             \(assertFunc)
                         }
                         """
-                    }
-//                }
-//                .flatMap { $0 }
+                }
+                
+                return withStyleTests
             }
-            .flatMap { $0 }
+            
+            return deviceTests.flatMap { $0 }
         }
         .flatMap { $0 }
         
@@ -113,7 +142,7 @@ private extension SceneSnapshotUITestMacro {
         case dark
     }
     
-    enum Orientation: String, CaseIterable {
+    enum Orientation: String, CaseIterable { // TODO: IMPLEMENT
         case landscape
         case portrait
     }
@@ -210,7 +239,6 @@ private extension SceneSnapshotUITestMacro {
     ) -> String {
         
         if device == .image {
-            // TODO: JLI DARK AND LIGHT DUPLICATED :/
             return """
             as: .image
             """

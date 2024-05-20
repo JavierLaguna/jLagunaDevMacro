@@ -18,28 +18,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             final class LoadingViewTests: XCTestCase {
 
                 
-            func test_loadingView_image_light_snapshot() {
-
-
-
-
-
-                
-            assertSnapshot(
-
-                
-                matching: LoadingView(),
-
-                
-                as: .image
-
-                
-            )
-                
-            }
-
-                
-            func test_loadingView_image_dark_snapshot() {
+            func test_loadingView_image_snapshot() {
 
 
 
@@ -382,17 +361,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             """
             final class CharactersListViewTests: XCTestCase {
 
-                func test_charactersListView_variantOne_image_light_snapshot() {
-
-                    setUpOneFunc()
-
-                    assertSnapshot(
-                        matching: CharactersListView(foo: bar),
-                        as: .image
-                    )
-                }
-
-                func test_charactersListView_variantOne_image_dark_snapshot() {
+                func test_charactersListView_variantOne_image_snapshot() {
 
                     setUpOneFunc()
 
@@ -532,16 +501,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                     )
                 }
 
-                func test_charactersListView_variantTwo_image_light_snapshot() {
-
-
-                    assertSnapshot(
-                        matching: CharactersListView(),
-                        as: .image
-                    )
-                }
-
-                func test_charactersListView_variantTwo_image_dark_snapshot() {
+                func test_charactersListView_variantTwo_image_snapshot() {
 
 
                     assertSnapshot(
