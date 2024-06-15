@@ -5,6 +5,18 @@ import SwiftSyntaxMacros
 
 public struct SceneSnapshotUITestMacro: MemberMacro {
     
+    struct VariantTest { // TODO: JLI
+        let name: String
+        let params: String?
+        let setUp: String?
+
+        init(name: String, params: String? = nil, setUp: String? = nil) {
+            self.name = name
+            self.params = params
+            self.setUp = setUp
+        }
+    }
+    
     // TODO: JLI Config parameter
     private static let useOrientations = false
     

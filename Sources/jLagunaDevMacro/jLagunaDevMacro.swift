@@ -16,5 +16,5 @@ public macro EnumTitle() = #externalMacro(module: "jLagunaDevMacroMacros", type:
 @attached(member, names: arbitrary)
 public macro SceneSnapshotUITest(
     scene: String,
-    variants: [Any] = [] // TODO: JLI
+    variants: [SceneSnapshotUITestMacro.Variant] = [] // TODO: JLI
 ) = #externalMacro(module: "jLagunaDevMacroMacros", type: "SceneSnapshotUITestMacro")
