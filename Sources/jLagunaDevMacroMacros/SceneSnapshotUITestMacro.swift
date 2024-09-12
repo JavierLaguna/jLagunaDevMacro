@@ -53,7 +53,8 @@ public struct SceneSnapshotUITestMacro: MemberMacro {
             let deviceTests = Device.allCases.map { device in
                 if device == .image {
                     let funcTitle = """
-                        func test_\(funcName)\(variantName)\(device.rawValue)_snapshot() {
+                        @Test
+                        func \(funcName)\(variantName)\(device.rawValue)_snapshot() {
                         """
                     
                     var setUpFunc = ""
