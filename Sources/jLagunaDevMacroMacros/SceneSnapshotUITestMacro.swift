@@ -83,7 +83,8 @@ public struct SceneSnapshotUITestMacro: MemberMacro {
                 
                 let withStyleTests = UIStyle.allCases.map { style in
                     let funcTitle = """
-                        func test_\(funcName)\(variantName)\(device.rawValue)_\(style)_snapshot() {
+                        @Test
+                        func \(funcName)\(variantName)\(device.rawValue)_\(style)_snapshot() {
                         """
                     
                     var setUpFunc = ""
@@ -97,7 +98,7 @@ public struct SceneSnapshotUITestMacro: MemberMacro {
                     let assertFunc = """
                         
                         assertSnapshot(
-                            matching: \(scene)(\(params)),
+                            of: \(scene)(\(params)),
                             \(getImageConfig(device: device, style: style, orientation: nil))
                         )
                         """
