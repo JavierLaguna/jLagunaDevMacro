@@ -1,21 +1,25 @@
-import XCTest
+import Testing
 import MacroTesting
 
 @testable import jLagunaDevMacroMacros
 
-final class SceneSnapshotUITestMacroTests: XCTestCase {
+@Suite("SceneSnapshotUITestMacro Tests")
+struct SceneSnapshotUITestMacroTests {
     
-    func testMacro() {
+    @Test
+    func macro() {
         assertMacro(["SceneSnapshotUITest": SceneSnapshotUITestMacro.self]) {
         """
         @SceneSnapshotUITest(scene: "LoadingView")
-        final class LoadingViewTests: XCTestCase {
+        @Suite("LoadingView Tests")
+        struct LoadingViewTests {
             
         }
         """
         } expansion: {
             """
-            final class LoadingViewTests: XCTestCase {
+            @Suite("LoadingView Tests")
+            struct LoadingViewTests {
 
                 
             @Test
@@ -41,7 +45,9 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             }
 
                 
-            func test_loadingView_iPhoneSe_light_snapshot() {
+            @Test
+                
+            func loadingView_iPhoneSe_light_snapshot() {
 
 
 
@@ -51,7 +57,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             assertSnapshot(
 
                 
-                matching: LoadingView(),
+                of: LoadingView(),
 
                 
                 as: .image(
@@ -71,7 +77,9 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             }
 
                 
-            func test_loadingView_iPhoneSe_dark_snapshot() {
+            @Test
+                
+            func loadingView_iPhoneSe_dark_snapshot() {
 
 
 
@@ -81,7 +89,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             assertSnapshot(
 
                 
-                matching: LoadingView(),
+                of: LoadingView(),
 
                 
                 as: .image(
@@ -101,7 +109,9 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             }
 
                 
-            func test_loadingView_iPhone13Mini_light_snapshot() {
+            @Test
+                
+            func loadingView_iPhone13Mini_light_snapshot() {
 
 
 
@@ -111,7 +121,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             assertSnapshot(
 
                 
-                matching: LoadingView(),
+                of: LoadingView(),
 
                 
                 as: .image(
@@ -131,7 +141,9 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             }
 
                 
-            func test_loadingView_iPhone13Mini_dark_snapshot() {
+            @Test
+                
+            func loadingView_iPhone13Mini_dark_snapshot() {
 
 
 
@@ -141,7 +153,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             assertSnapshot(
 
                 
-                matching: LoadingView(),
+                of: LoadingView(),
 
                 
                 as: .image(
@@ -161,7 +173,9 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             }
 
                 
-            func test_loadingView_iPhoneX_light_snapshot() {
+            @Test
+                
+            func loadingView_iPhoneX_light_snapshot() {
 
 
 
@@ -171,7 +185,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             assertSnapshot(
 
                 
-                matching: LoadingView(),
+                of: LoadingView(),
 
                 
                 as: .image(
@@ -191,7 +205,9 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             }
 
                 
-            func test_loadingView_iPhoneX_dark_snapshot() {
+            @Test
+                
+            func loadingView_iPhoneX_dark_snapshot() {
 
 
 
@@ -201,7 +217,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             assertSnapshot(
 
                 
-                matching: LoadingView(),
+                of: LoadingView(),
 
                 
                 as: .image(
@@ -221,7 +237,9 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             }
 
                 
-            func test_loadingView_iPhone13Pro_light_snapshot() {
+            @Test
+                
+            func loadingView_iPhone13Pro_light_snapshot() {
 
 
 
@@ -231,7 +249,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             assertSnapshot(
 
                 
-                matching: LoadingView(),
+                of: LoadingView(),
 
                 
                 as: .image(
@@ -251,7 +269,9 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             }
 
                 
-            func test_loadingView_iPhone13Pro_dark_snapshot() {
+            @Test
+                
+            func loadingView_iPhone13Pro_dark_snapshot() {
 
 
 
@@ -261,7 +281,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             assertSnapshot(
 
                 
-                matching: LoadingView(),
+                of: LoadingView(),
 
                 
                 as: .image(
@@ -281,7 +301,9 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             }
 
                 
-            func test_loadingView_iPhone13ProMax_light_snapshot() {
+            @Test
+                
+            func loadingView_iPhone13ProMax_light_snapshot() {
 
 
 
@@ -291,7 +313,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             assertSnapshot(
 
                 
-                matching: LoadingView(),
+                of: LoadingView(),
 
                 
                 as: .image(
@@ -311,7 +333,9 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             }
 
                 
-            func test_loadingView_iPhone13ProMax_dark_snapshot() {
+            @Test
+                
+            func loadingView_iPhone13ProMax_dark_snapshot() {
 
 
 
@@ -321,7 +345,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             assertSnapshot(
 
                 
-                matching: LoadingView(),
+                of: LoadingView(),
 
                 
                 as: .image(
@@ -345,7 +369,8 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
         }
     }
     
-    func testMacroWithVariants() {
+    @Test
+    func macroWithVariants() {
         assertMacro(["SceneSnapshotUITest": SceneSnapshotUITestMacro.self]) {
         """
         @SceneSnapshotUITest(
@@ -637,7 +662,8 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
         }
     }
     
-    func testMacroRequiredSceneError() {
+    @Test
+    func macroRequiredSceneError() {
         assertMacro(["SceneSnapshotUITest": SceneSnapshotUITestMacro.self]) {
         """
         @SceneSnapshotUITest
@@ -657,7 +683,8 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
         }
     }
     
-    func testMacroSceneInvalidTypeError() {
+    @Test
+    func macroSceneInvalidTypeError() {
         assertMacro(["SceneSnapshotUITest": SceneSnapshotUITestMacro.self]) {
         """
         @SceneSnapshotUITest(scene: 2)
@@ -677,7 +704,8 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
         }
     }
     
-    func testMacroSceneEmptyError() {
+    @Test
+    func macroSceneEmptyError() {
         assertMacro(["SceneSnapshotUITest": SceneSnapshotUITestMacro.self]) {
         """
         @SceneSnapshotUITest(scene: "")
@@ -697,7 +725,8 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
         }
     }
     
-    func testMacroDuplicatedVariantNameError() {
+    @Test
+    func macroDuplicatedVariantNameError() {
         assertMacro(["SceneSnapshotUITest": SceneSnapshotUITestMacro.self]) {
         """
         @SceneSnapshotUITest(
@@ -728,7 +757,8 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
         }
     }
     
-    func testMacroVariantNameEmptyError() {
+    @Test
+    func macroVariantNameEmptyError() {
         assertMacro(["SceneSnapshotUITest": SceneSnapshotUITestMacro.self]) {
         """
         @SceneSnapshotUITest(
