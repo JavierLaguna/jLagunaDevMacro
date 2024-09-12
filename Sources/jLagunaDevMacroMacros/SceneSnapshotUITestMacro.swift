@@ -24,6 +24,11 @@ public struct SceneSnapshotUITestMacro: MemberMacro {
         in context: some MacroExpansionContext
     ) throws -> [DeclSyntax] {
         
+        // TODO: JLI
+        //        guard let enumDel = declaration.as(ClassDeclSyntax.self) else {
+        //            throw Error.onlyApplicableToXCTestCase
+        //        }
+        
         let scene = try getSceneName(from: node)
         let funcName = scene.camelCased
         
@@ -48,8 +53,7 @@ public struct SceneSnapshotUITestMacro: MemberMacro {
             let deviceTests = Device.allCases.map { device in
                 if device == .image {
                     let funcTitle = """
-                        @Test
-                        func \(funcName)\(variantName)\(device.rawValue)_snapshot() {
+                        func test_\(funcName)\(variantName)\(device.rawValue)_snapshot() {
                         """
                     
                     var setUpFunc = ""
@@ -78,8 +82,7 @@ public struct SceneSnapshotUITestMacro: MemberMacro {
                 
                 let withStyleTests = UIStyle.allCases.map { style in
                     let funcTitle = """
-                        @Test
-                        func \(funcName)\(variantName)\(device.rawValue)_\(style)_snapshot() {
+                        func test_\(funcName)\(variantName)\(device.rawValue)_\(style)_snapshot() {
                         """
                     
                     var setUpFunc = ""
@@ -145,6 +148,7 @@ private extension SceneSnapshotUITestMacro {
     }
     
     enum Error: Swift.Error, CustomStringConvertible {
+        case onlyApplicableToXCTestCase
         case sceneNotFound
         case sceneInvalidType
         case sceneEmpty
@@ -153,6 +157,7 @@ private extension SceneSnapshotUITestMacro {
         
         var description: String {
             switch self {
+            case .onlyApplicableToXCTestCase: "This macro can only be applied to a XCTestCase."
             case .sceneNotFound: "Required scene param."
             case .sceneInvalidType: "Scene param must be a String."
             case .sceneEmpty: "Scene param can not be empty."
