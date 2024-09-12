@@ -24,11 +24,6 @@ public struct SceneSnapshotUITestMacro: MemberMacro {
         in context: some MacroExpansionContext
     ) throws -> [DeclSyntax] {
         
-        // TODO: JLI
-        //        guard let enumDel = declaration.as(ClassDeclSyntax.self) else {
-        //            throw Error.onlyApplicableToXCTestCase
-        //        }
-        
         let scene = try getSceneName(from: node)
         let funcName = scene.camelCased
         
@@ -150,7 +145,6 @@ private extension SceneSnapshotUITestMacro {
     }
     
     enum Error: Swift.Error, CustomStringConvertible {
-        case onlyApplicableToXCTestCase
         case sceneNotFound
         case sceneInvalidType
         case sceneEmpty
@@ -159,7 +153,6 @@ private extension SceneSnapshotUITestMacro {
         
         var description: String {
             switch self {
-            case .onlyApplicableToXCTestCase: "This macro can only be applied to a XCTestCase."
             case .sceneNotFound: "Required scene param."
             case .sceneInvalidType: "Scene param must be a String."
             case .sceneEmpty: "Scene param can not be empty."
