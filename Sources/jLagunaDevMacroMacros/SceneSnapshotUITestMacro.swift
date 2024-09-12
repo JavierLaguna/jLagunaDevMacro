@@ -68,7 +68,7 @@ public struct SceneSnapshotUITestMacro: MemberMacro {
                     let assertFunc = """
                         
                         assertSnapshot(
-                            matching: \(scene)(\(params)),
+                            of: \(scene)(\(params)),
                             \(getImageConfig(device: device, style: .light, orientation: nil))
                         )
                         """

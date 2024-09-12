@@ -18,7 +18,9 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             final class LoadingViewTests: XCTestCase {
 
                 
-            func test_loadingView_image_snapshot() {
+            @Test
+                
+            func loadingView_image_snapshot() {
 
 
 
@@ -28,7 +30,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             assertSnapshot(
 
                 
-                matching: LoadingView(),
+                of: LoadingView(),
 
                 
                 as: .image
