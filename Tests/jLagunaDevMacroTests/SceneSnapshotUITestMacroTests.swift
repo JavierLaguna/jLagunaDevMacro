@@ -1,11 +1,13 @@
-import XCTest
+import Testing
 import MacroTesting
 
 @testable import jLagunaDevMacroMacros
 
-final class SceneSnapshotUITestMacroTests: XCTestCase {
+@Suite("SceneSnapshotUImacro")
+struct SceneSnapshotUImacroTests {
     
-    func testMacro() {
+    @Test
+    func macro() {
         assertMacro(["SceneSnapshotUITest": SceneSnapshotUITestMacro.self]) {
         """
         @SceneSnapshotUITest(scene: "LoadingView")
@@ -28,7 +30,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             assertSnapshot(
 
                 
-                matching: LoadingView(),
+                of: LoadingView(),
 
                 
                 as: .image
@@ -49,7 +51,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             assertSnapshot(
 
                 
-                matching: LoadingView(),
+                of: LoadingView(),
 
                 
                 as: .image(
@@ -79,7 +81,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             assertSnapshot(
 
                 
-                matching: LoadingView(),
+                of: LoadingView(),
 
                 
                 as: .image(
@@ -109,7 +111,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             assertSnapshot(
 
                 
-                matching: LoadingView(),
+                of: LoadingView(),
 
                 
                 as: .image(
@@ -139,7 +141,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             assertSnapshot(
 
                 
-                matching: LoadingView(),
+                of: LoadingView(),
 
                 
                 as: .image(
@@ -169,7 +171,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             assertSnapshot(
 
                 
-                matching: LoadingView(),
+                of: LoadingView(),
 
                 
                 as: .image(
@@ -199,7 +201,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             assertSnapshot(
 
                 
-                matching: LoadingView(),
+                of: LoadingView(),
 
                 
                 as: .image(
@@ -229,7 +231,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             assertSnapshot(
 
                 
-                matching: LoadingView(),
+                of: LoadingView(),
 
                 
                 as: .image(
@@ -259,7 +261,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             assertSnapshot(
 
                 
-                matching: LoadingView(),
+                of: LoadingView(),
 
                 
                 as: .image(
@@ -289,7 +291,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             assertSnapshot(
 
                 
-                matching: LoadingView(),
+                of: LoadingView(),
 
                 
                 as: .image(
@@ -319,7 +321,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
             assertSnapshot(
 
                 
-                matching: LoadingView(),
+                of: LoadingView(),
 
                 
                 as: .image(
@@ -343,7 +345,8 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
         }
     }
     
-    func testMacroWithVariants() {
+    @Test
+    func macroWithVariants() {
         assertMacro(["SceneSnapshotUITest": SceneSnapshotUITestMacro.self]) {
         """
         @SceneSnapshotUITest(
@@ -366,7 +369,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                     setUpOneFunc()
 
                     assertSnapshot(
-                        matching: CharactersListView(foo: bar),
+                        of: CharactersListView(foo: bar),
                         as: .image
                     )
                 }
@@ -376,7 +379,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                     setUpOneFunc()
 
                     assertSnapshot(
-                        matching: CharactersListView(foo: bar),
+                        of: CharactersListView(foo: bar),
                         as: .image(
                         layout: .device(config: .iPhoneSe),
                         traits: .init(userInterfaceStyle: .light)
@@ -389,7 +392,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                     setUpOneFunc()
 
                     assertSnapshot(
-                        matching: CharactersListView(foo: bar),
+                        of: CharactersListView(foo: bar),
                         as: .image(
                         layout: .device(config: .iPhoneSe),
                         traits: .init(userInterfaceStyle: .dark)
@@ -402,7 +405,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                     setUpOneFunc()
 
                     assertSnapshot(
-                        matching: CharactersListView(foo: bar),
+                        of: CharactersListView(foo: bar),
                         as: .image(
                         layout: .device(config: .iPhone13Mini),
                         traits: .init(userInterfaceStyle: .light)
@@ -415,7 +418,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                     setUpOneFunc()
 
                     assertSnapshot(
-                        matching: CharactersListView(foo: bar),
+                        of: CharactersListView(foo: bar),
                         as: .image(
                         layout: .device(config: .iPhone13Mini),
                         traits: .init(userInterfaceStyle: .dark)
@@ -428,7 +431,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                     setUpOneFunc()
 
                     assertSnapshot(
-                        matching: CharactersListView(foo: bar),
+                        of: CharactersListView(foo: bar),
                         as: .image(
                         layout: .device(config: .iPhoneX),
                         traits: .init(userInterfaceStyle: .light)
@@ -441,7 +444,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                     setUpOneFunc()
 
                     assertSnapshot(
-                        matching: CharactersListView(foo: bar),
+                        of: CharactersListView(foo: bar),
                         as: .image(
                         layout: .device(config: .iPhoneX),
                         traits: .init(userInterfaceStyle: .dark)
@@ -454,7 +457,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                     setUpOneFunc()
 
                     assertSnapshot(
-                        matching: CharactersListView(foo: bar),
+                        of: CharactersListView(foo: bar),
                         as: .image(
                         layout: .device(config: .iPhone13Pro),
                         traits: .init(userInterfaceStyle: .light)
@@ -467,7 +470,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                     setUpOneFunc()
 
                     assertSnapshot(
-                        matching: CharactersListView(foo: bar),
+                        of: CharactersListView(foo: bar),
                         as: .image(
                         layout: .device(config: .iPhone13Pro),
                         traits: .init(userInterfaceStyle: .dark)
@@ -480,7 +483,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                     setUpOneFunc()
 
                     assertSnapshot(
-                        matching: CharactersListView(foo: bar),
+                        of: CharactersListView(foo: bar),
                         as: .image(
                         layout: .device(config: .iPhone13ProMax),
                         traits: .init(userInterfaceStyle: .light)
@@ -493,7 +496,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
                     setUpOneFunc()
 
                     assertSnapshot(
-                        matching: CharactersListView(foo: bar),
+                        of: CharactersListView(foo: bar),
                         as: .image(
                         layout: .device(config: .iPhone13ProMax),
                         traits: .init(userInterfaceStyle: .dark)
@@ -505,7 +508,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
 
 
                     assertSnapshot(
-                        matching: CharactersListView(),
+                        of: CharactersListView(),
                         as: .image
                     )
                 }
@@ -514,7 +517,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
 
 
                     assertSnapshot(
-                        matching: CharactersListView(),
+                        of: CharactersListView(),
                         as: .image(
                         layout: .device(config: .iPhoneSe),
                         traits: .init(userInterfaceStyle: .light)
@@ -526,7 +529,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
 
 
                     assertSnapshot(
-                        matching: CharactersListView(),
+                        of: CharactersListView(),
                         as: .image(
                         layout: .device(config: .iPhoneSe),
                         traits: .init(userInterfaceStyle: .dark)
@@ -538,7 +541,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
 
 
                     assertSnapshot(
-                        matching: CharactersListView(),
+                        of: CharactersListView(),
                         as: .image(
                         layout: .device(config: .iPhone13Mini),
                         traits: .init(userInterfaceStyle: .light)
@@ -550,7 +553,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
 
 
                     assertSnapshot(
-                        matching: CharactersListView(),
+                        of: CharactersListView(),
                         as: .image(
                         layout: .device(config: .iPhone13Mini),
                         traits: .init(userInterfaceStyle: .dark)
@@ -562,7 +565,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
 
 
                     assertSnapshot(
-                        matching: CharactersListView(),
+                        of: CharactersListView(),
                         as: .image(
                         layout: .device(config: .iPhoneX),
                         traits: .init(userInterfaceStyle: .light)
@@ -574,7 +577,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
 
 
                     assertSnapshot(
-                        matching: CharactersListView(),
+                        of: CharactersListView(),
                         as: .image(
                         layout: .device(config: .iPhoneX),
                         traits: .init(userInterfaceStyle: .dark)
@@ -586,7 +589,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
 
 
                     assertSnapshot(
-                        matching: CharactersListView(),
+                        of: CharactersListView(),
                         as: .image(
                         layout: .device(config: .iPhone13Pro),
                         traits: .init(userInterfaceStyle: .light)
@@ -598,7 +601,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
 
 
                     assertSnapshot(
-                        matching: CharactersListView(),
+                        of: CharactersListView(),
                         as: .image(
                         layout: .device(config: .iPhone13Pro),
                         traits: .init(userInterfaceStyle: .dark)
@@ -610,7 +613,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
 
 
                     assertSnapshot(
-                        matching: CharactersListView(),
+                        of: CharactersListView(),
                         as: .image(
                         layout: .device(config: .iPhone13ProMax),
                         traits: .init(userInterfaceStyle: .light)
@@ -622,7 +625,7 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
 
 
                     assertSnapshot(
-                        matching: CharactersListView(),
+                        of: CharactersListView(),
                         as: .image(
                         layout: .device(config: .iPhone13ProMax),
                         traits: .init(userInterfaceStyle: .dark)
@@ -635,7 +638,8 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
         }
     }
     
-    func testMacroRequiredSceneError() {
+    @Test
+    func macroRequiredSceneError() {
         assertMacro(["SceneSnapshotUITest": SceneSnapshotUITestMacro.self]) {
         """
         @SceneSnapshotUITest
@@ -655,7 +659,8 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
         }
     }
     
-    func testMacroSceneInvalidTypeError() {
+    @Test
+    func macroSceneInvalidTypeError() {
         assertMacro(["SceneSnapshotUITest": SceneSnapshotUITestMacro.self]) {
         """
         @SceneSnapshotUITest(scene: 2)
@@ -675,7 +680,8 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
         }
     }
     
-    func testMacroSceneEmptyError() {
+    @Test
+    func macroSceneEmptyError() {
         assertMacro(["SceneSnapshotUITest": SceneSnapshotUITestMacro.self]) {
         """
         @SceneSnapshotUITest(scene: "")
@@ -695,7 +701,8 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
         }
     }
     
-    func testMacroDuplicatedVariantNameError() {
+    @Test
+    func macroDuplicatedVariantNameError() {
         assertMacro(["SceneSnapshotUITest": SceneSnapshotUITestMacro.self]) {
         """
         @SceneSnapshotUITest(
@@ -726,7 +733,8 @@ final class SceneSnapshotUITestMacroTests: XCTestCase {
         }
     }
     
-    func testMacroVariantNameEmptyError() {
+    @Test
+    func macroVariantNameEmptyError() {
         assertMacro(["SceneSnapshotUITest": SceneSnapshotUITestMacro.self]) {
         """
         @SceneSnapshotUITest(
