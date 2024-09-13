@@ -1,11 +1,13 @@
-import XCTest
+import Testing
 import MacroTesting
 
 @testable import jLagunaDevMacroMacros
 
-final class EnumTitleMacroTests: XCTestCase {
+@Suite("EnumTitleMacro")
+struct EnumTitleMacroTests {
     
-    func testMacro() {
+    @Test
+    func macro() {
       assertMacro(["EnumTitle": EnumTitleMacro.self]) {
         """
         @EnumTitle
@@ -37,7 +39,8 @@ final class EnumTitleMacroTests: XCTestCase {
       }
     }
     
-    func testMacroOnANonEnum() {
+    @Test
+    func macroOnANonEnum() {
       assertMacro(["EnumTitle": EnumTitleMacro.self]) {
         """
         @EnumTitle

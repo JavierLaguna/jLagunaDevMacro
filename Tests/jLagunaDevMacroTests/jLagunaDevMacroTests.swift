@@ -14,6 +14,7 @@ fileprivate let testMacros: [String: Macro.Type] = [
 #endif
 
 final class jLagunaDevMacroTests: XCTestCase {
+    
     func testMacro() throws {
         #if canImport(jLagunaDevMacroMacros)
         assertMacroExpansion(
